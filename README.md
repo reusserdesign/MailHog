@@ -1,6 +1,32 @@
 MailHog [ ![Download](https://img.shields.io/github/release/mailhog/MailHog.svg) ](https://github.com/mailhog/MailHog/releases/tag/v1.0.0) [![GoDoc](https://godoc.org/github.com/mailhog/MailHog?status.svg)](https://godoc.org/github.com/mailhog/MailHog) [![Build Status](https://travis-ci.org/mailhog/MailHog.svg?branch=master)](https://travis-ci.org/mailhog/MailHog)
 =========
 
+### docker-compose
+
+`docker-compose.yml`
+
+```yml
+version: "3.7"
+services:
+  mailhog:
+    image: reusserdesign/mailhog
+    restart: always
+    command: ["-storage=maildir", "-maildir-path=/maildir"]
+    volumes:
+      - ./data:/maildir
+    user: root
+    expose:
+      - 1025
+      - 8025
+    ports:
+      - 1025:1025
+      - 8025:8025
+    healthcheck:
+      test: echo | telnet 127.0.0.1 1025
+```
+
+### Intro
+
 Inspired by [MailCatcher](http://mailcatcher.me/), easier to install.
 
 * Download and run MailHog
